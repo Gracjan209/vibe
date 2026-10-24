@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="de" data-theme="glass">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1030">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Vibe</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192-1.png">
+<link rel="apple-touch-icon" href="icon-192-1.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="bg-base"></div>
+<div id="bg-cover"></div>
+
+<div id="app">
+  <!-- Login / Einrichtung -->
+  <section id="login" class="view scroll" hidden>
+    <div class="glass card login-card">
+      <h1>Vibe</h1>
+      <p class="muted">Dein Spotify-Player mit eigenen Themen. Einmalige Einrichtung:</p>
+      <ol class="steps">
+        <li>Öffne <b>developer.spotify.com/dashboard</b> und erstelle eine App (Haken bei <b>Web API</b>).</li>
+        <li>Trage bei <b>Redirect URI</b> genau diese Adresse ein:
+          <div class="copybox"><code id="redirectUri"></code><button id="copyBtn" class="chip">Kopieren</button></div>
+        </li>
+        <li>Kopiere die <b>Client ID</b> der App und füge sie hier ein:</li>
+      </ol>
+      <input id="clientId" type="text" placeholder="Client ID" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <button id="loginBtn" class="primary">Mit Spotify verbinden</button>
+    </div>
+  </section>
+
+  <!-- Player -->
+  <section id="view-player" class="view scroll">
+    <div class="player">
+      <div class="cover-wrap"><img id="cover" class="cover" alt="" hidden><div id="coverEmpty" class="cover empty"><i data-i="note"></i></div></div>
+      <div class="meta">
+        <h2 id="title">Nichts spielt gerade</h2>
+        <p id="artist" class="muted">Starte einen Song in der Spotify-App</p>
+      </div>
+      <div class="glass card controls-card">
+        <div class="progress">
+          <input id="seek" type="range" min="0" max="1000" value="0" step="1">
+          <div class="times"><span id="tNow">0:00</span><span id="tEnd">0:00</span></div>
+        </div>
+        <div class="controls">
+          <button id="bShuffle" class="btn small" aria-label="Zufall"><i data-i="shuffle"></i></button>
+          <button id="bPrev" class="btn" aria-label="Zurück"><i data-i="prev"></i></button>
+          <button id="bPlay" class="btn play" aria-label="Play/Pause"><i data-i="play"></i></button>
+          <button id="bNext" class="btn" aria-label="Weiter"><i data-i="next"></i></button>
+          <button id="bRepeat" class="btn small" aria-label="Wiederholen"><i data-i="repeat"></i></button>
+        </div>
+        <p id="device" class="muted tiny"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Playlists -->
+  <section id="view-lists" class="view scroll" hidden>
+    <h2 class="page-title">Deine Playlists</h2>
+    <div id="grid" class="grid"></div>
+  </section>
+
+  <!-- Themen -->
+  <section id="view-themes" class="view scroll" hidden>
+    <h2 class="page-title">Themen</h2>
+    <div id="themeGrid" class="grid"></div>
+    <button id="logoutBtn" class="ghost">Abmelden</button>
+  </section>
+
+  <nav id="tabbar" class="glass tabbar" hidden>
+    <button class="tab active" data-view="view-player"><i data-i="note"></i><span>Player</span></button>
+    <button class="tab" data-view="view-lists"><i data-i="list"></i><span>Playlists</span></button>
+    <button class="tab" data-view="view-themes"><i data-i="palette"></i><span>Themen</span></button>
+  </nav>
+</div>
+
+<div id="toast" class="glass" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
